@@ -1,8 +1,5 @@
-
 name: Deploy no EC2 - WEB
-
 on:
- 
   push:
     branches: ["main"]
 
@@ -24,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Deploy to EC2
         run: |
-             echo "${{secret.key_G}}" >private_key && chmod 400 private_key
+             echo "${{secret.key_G}}" >private_key && chmod 600 private_key
              ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-54-196-85-230.compute-1.amazonaws.com"
                    cd /var/www/html/webserver &&
                    sudo git pull"
