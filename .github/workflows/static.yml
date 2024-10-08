@@ -1,0 +1,30 @@
+
+name: Deploy no EC2 - WEB
+
+on:
+ 
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy to EC2
+        run: |
+             echo "${{secret.key_G}} >private_key && chmod 400 private_key
+             ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-54-196-85-230.compute-1.amazonaws.com"
+                   cd /var/www/html/webserver &&
+                   sudo git pull"
